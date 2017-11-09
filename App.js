@@ -11,6 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
+import codePush from "react-native-code-push";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -19,7 +20,7 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component<{}> {
+class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
@@ -36,6 +37,14 @@ export default class App extends Component<{}> {
     );
   }
 }
+
+App = codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  installMode: codePush.InstallMode.ON_NEXT_RESUME,
+  minimumBackgroundDuration: 60 * 2
+})(App);
+
+export default App
 
 const styles = StyleSheet.create({
   container: {
